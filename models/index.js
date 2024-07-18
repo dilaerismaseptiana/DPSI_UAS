@@ -24,11 +24,7 @@ if (process.env.DATABASE_URL) {
     host: config.host,
     port: config.port,
     dialect: config.dialect,
-    dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false // Hanya diperlukan jika Anda menghubungkan ke database dengan SSL
-      }
-    }
+    dialectModule: require('mysql2'),
   });
 }
 
