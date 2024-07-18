@@ -10,12 +10,25 @@ const config = require(__dirname + '/../config/db_config.js')[env];
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+if (process.env.DATABASE_URL) {
+  // Jika menggunakan DATABASE_URL dari variabel lingkungan
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'mysql', // Sesuaikan dengan jenis database yang Anda gunakan
+    ssl: {
+      rejectUnauthorized: false // Hanya diperlukan jika Anda menghubungkan ke database dengan SSL
+    }
+  });
 } else {
+  // Jika tidak menggunakan DATABASE_URL, gunakan konfigurasi lainnya
   sequelize = new Sequelize(config.database, config.username, config.password, {
-    ...config,
-    port: config.port // Menggunakan nilai port dari konfigurasi
+    host: config.host,
+    port: config.port,
+    dialect: config.dialect,
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false // Hanya diperlukan jika Anda menghubungkan ke database dengan SSL
+      }
+    }
   });
 }
 
