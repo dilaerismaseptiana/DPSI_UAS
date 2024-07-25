@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); // Implementasi JWT
 const bcrypt = require('bcrypt');
 const { Users, Mahasiswa } = require('../models');
 require('dotenv').config(); // Load environment variables from .env file
