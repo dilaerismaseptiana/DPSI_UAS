@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); // Implementasi JWT
 require('dotenv').config(); // Memuat variabel lingkungan dari .env
 
 const authenticateToken = (req, res, next) => {
